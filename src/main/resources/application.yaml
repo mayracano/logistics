@@ -1,0 +1,52 @@
+spring:
+  application:
+    name: logistics-service
+
+  profiles:
+    active: local
+
+  datasource:
+    url: ${CLOUD_DB_URL}
+    username: ${CLOUD_DB_USER}
+    password: ${CLOUD_DB_PASSWORD}
+    database: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        default_schema: logistics
+
+        envers:
+          audit_table_suffix: _aud
+          store_data_at_delete: true
+
+  docker:
+    compose:
+      enabled: true
+      file: compose.yaml
+
+application:
+  security:
+    jwt:
+      secret-key: ${JWT_SECRET}
+      expiration: ${JWT_EXPIRATION}
+
+  logistics:
+    rates:
+      base-rate: 5.50
+      rate-per-kg: 2.25
+
+level:
+  root: INFO
+  com.generic.library: DEBUG
+  org.hibernate.SQL: DEBUG
+
+springdoc:
+  api-docs:
+    enabled: false

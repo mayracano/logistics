@@ -1,0 +1,13 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: logistics-api-container
+    ports:
+      - "8080:8080"
+    restart: always
+    env_file:
+      - src/main/resources/application-local.properties
+    environment:
+      - TZ=America/Mexico_City
